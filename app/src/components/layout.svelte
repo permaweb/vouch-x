@@ -29,7 +29,9 @@
         Join VouchDAO’s Discord community for any information or assistance!
       </div>
     </div>
-    <div
+    <a
+      href="https://discord.gg/3JhZkVWv82"
+      target="_blank"
       class="h-[43px] px-[18px] py-2.5 bg-white rounded-[11px] border-2 border-gray-200 justify-start items-center gap-1 flex"
     >
       <div
@@ -53,7 +55,7 @@
           fill="#FCC500"
         />
       </svg>
-    </div>
+    </a>
   </div>
 </div>
 <div
@@ -66,11 +68,12 @@
       <div
         class="self-stretch h-20 px-5 justify-start items-center gap-2.5 inline-flex"
       >
-        <div
+        <a
+          href="/"
           class="text-zinc-900 text-[40px] font-medium font-['Satoshi'] tracking-wide"
         >
           VouchX
-        </div>
+        </a>
       </div>
       <div class="justify-start items-center gap-[17px] inline-flex">
         <div
@@ -91,7 +94,9 @@
       >
         Feedback and support.
       </div>
-      <div
+      <a
+        href="https://discord.gg/3JhZkVWv82"
+        target="_blank"
         class="w-[152px] py-2.5 rounded-[11px] justify-start items-start inline-flex"
       >
         <svg
@@ -122,7 +127,7 @@
             fill="#FCC500"
           />
         </svg>
-      </div>
+      </a>
     </div>
   </div>
 </div>

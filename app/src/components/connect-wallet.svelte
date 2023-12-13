@@ -1,6 +1,6 @@
 <script>
   import { ArweaveWebWallet } from "arweave-wallet-connector";
-  import { Othent } from "othent";
+  import { connect, getActiveKey } from "@othent/kms";
   import { router } from "tinro";
   import { address } from "../store.js";
 
@@ -28,14 +28,10 @@
   }
 
   async function othentConnect() {
-    const othent = await Othent({
-      API_ID: "e3060cb3452aae07af23f8b0978b928c",
-    });
+    await connect();
 
-    const userDetails = await othent.logIn();
-
-    console.log(userDetails);
-    router.goto("/x");
+    $address = await getActiveKey();
+    router.goto("/signin");
   }
 </script>
 

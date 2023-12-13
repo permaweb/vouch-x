@@ -21,8 +21,11 @@
     <Route path="/success">
       <Success />
     </Route>
-    <Route path="/error">
-      <h1>There was an error with your request!</h1>
+    <Route path="/error" let:meta>
+      <h1 class="text-zinc-400 text-[30px]">
+        There was an error with your request!
+      </h1>
+      <p class="mt-16">{decodeURI(meta.query.msg)}</p>
     </Route>
   </div>
   <Nav slot="nav" />
