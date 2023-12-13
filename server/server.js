@@ -4,7 +4,6 @@ import cors from 'cors'
 
 import { status } from './routes/status.js'
 import { login, callback } from './routes/x.js'
-import { vouch } from './routes/vouch.js'
 
 const app = express()
 
@@ -21,6 +20,5 @@ app.use(session({
 app.get('/', status)
 app.get('/x', login)
 app.get('/x/callback', callback)
-app.post('/vouch', vouch)
 
 app.listen(4000)

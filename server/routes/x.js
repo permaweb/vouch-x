@@ -1,5 +1,6 @@
 import LoginWithX from 'login-with-twitter'
 import Twitter from 'twitter-v2'
+import { vouch } from '../lib/index.js'
 
 const tw = new LoginWithX({
   consumerKey: process.env.CONSUMER_KEY,
@@ -38,7 +39,7 @@ export function callback(req, res) {
     }
 
     delete req.session.tokenSecret
-    req.session.user = user
+
     const client = new Twitter({
       consumer_key: process.env.CONSUMER_KEY,
       consumer_secret: process.env.CONSUMER_SECRET,
@@ -48,21 +49,12 @@ export function callback(req, res) {
     // get created at and return to client
     // 
     const params = { 'user.fields': 'created_at' }
-    client.get('users/me', params).then(result => {
-
-      req.session.createdAt = result.data.created_at
-      // if user not created before six month then redirect to error
-      // if wallet is alreay vouched redirect to error
-      // vouch wallet
-      // TODO: vouch user
-      res.redirect(req.session.callback + '/#/success' || '/')
-
+    client.get('users/me', params).then(async ({ data }) => {
+      await vouch(data.created_at, req.session.address)
+      res.redirect(req.session.callback + '/#/success')
+    }).catch(err => {
+      console.error(err)
+      res.redirect(req.session.callback + '/#/error?msg=' + err.message)
     })
-
-
   })
-}
-
-async function vouch(address) {
-
 }

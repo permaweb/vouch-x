@@ -354,6 +354,14 @@
     async-retry "^1.3.3"
     axios "^1.4.0"
 
+"@irys/query@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@irys/query/-/query-0.0.2.tgz#dc70526a59b492723d9228f34131c38e86df3e89"
+  integrity sha512-LaUGF2pYkk5YEogAjSmPQxtye0oKgLcXvVi31nyS7mA522FuXVHzqxqhFBtjyWFCwnrJyAcqVfDUwdXuMXRYeA==
+  dependencies:
+    async-retry "^1.3.3"
+    axios "^1.4.0"
+
 "@irys/sdk@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@irys/sdk/-/sdk-0.1.1.tgz#c6ed31be5ffd5069db34f7d6c80b7c7a86f0b35b"

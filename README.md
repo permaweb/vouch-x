@@ -21,7 +21,6 @@
 - **GET /** - Healthcheck endpoint
 - **GET /x** - Start Twitter Auth Process
 - **GET /x/callback** - Callback endpoint
-- **POST /vouch** - Vouch Address if successfully logged in with twitter
 
 ### 3. Security
 - Ensure secure OAuth implementation for Twitter sign-in.
