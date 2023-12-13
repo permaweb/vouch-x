@@ -4,13 +4,11 @@
   const AUTH_SERVICE = "https://vouch-x.onrender.com";
 
   function login() {
-    console.log("address: ", $address);
-    globalThis.location.href =
-      AUTH_SERVICE +
-      "/x?callback=" +
-      encodeURI(globalThis.location.href.replace(/\/$/, "")) +
-      "&address=" +
-      $address;
+    const addr = $address;
+    console.log("address: ", addr);
+    globalThis.location.href = `${AUTH_SERVICE}/x?address=${addr}&callback=${encodeURI(
+      globalThis.location.href
+    )}`;
   }
 </script>
 
