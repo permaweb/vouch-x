@@ -1,14 +1,14 @@
 <script>
   import { address } from "../store.js";
-  const AUTH_SERVICE =
-    "https://4000-permaweb-vouchx-2zoe05600qn.ws-us106.gitpod.io";
-  // const AUTH_SERVICE = "https://vouch-x.onrender.com"
+  //const AUTH_SERVICE = "https://4000-permaweb-vouchx-2zoe05600qn.ws-us106.gitpod.io";
+  const AUTH_SERVICE = "https://vouch-x.onrender.com";
 
   function login() {
+    console.log("address: ", $address);
     globalThis.location.href =
       AUTH_SERVICE +
       "/x?callback=" +
-      encodeURI("https://5173-permaweb-vouchx-2zoe05600qn.ws-us106.gitpod.io") +
+      encodeURI(globalThis.location.href.replace(/\/$/, "")) +
       "&address=" +
       $address;
   }
