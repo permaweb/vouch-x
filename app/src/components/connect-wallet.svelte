@@ -28,8 +28,8 @@
   }
 
   async function othentConnect() {
-    await connect();
-
+    const result = await connect();
+    console.log("result: ", result);
     $address = await getActiveKey();
     router.goto("/signin");
   }
