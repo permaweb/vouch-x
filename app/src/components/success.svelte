@@ -1,7 +1,5 @@
 <script>
-  tsParticles.load("tsparticles", {
-    preset: "confetti",
-  });
+  import Confetti from "svelte-confetti";
 
   async function checkGateway(e) {
     e.preventDefault();
@@ -19,6 +17,29 @@
     //globalThis.location.href = "https://now.g8way.io";
   }
 </script>
+
+<div
+  style="
+ position: fixed;
+ top: -50px;
+ left: 0;
+ height: 100vh;
+ width: 100vw;
+ display: flex;
+ justify-content: center;
+ overflow: hidden;
+ pointer-events: none;"
+>
+  <Confetti
+    x={[-5, 5]}
+    y={[0, 0.1]}
+    delay={[500, 2000]}
+    infinite
+    duration="5000"
+    amount="200"
+    fallDistance="100vh"
+  />
+</div>
 
 <div class="flex-col justify-start items-start gap-[37px] flex">
   <div class="flex-col justify-start items-start gap-[25px] flex">

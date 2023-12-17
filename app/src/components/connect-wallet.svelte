@@ -1,6 +1,6 @@
 <script>
   import { ArweaveWebWallet } from "arweave-wallet-connector";
-  import { connect, getActiveKey } from "@othent/kms";
+  //import { connect, getActiveKey } from "@othent/kms";
   import { router } from "tinro";
   import { address } from "../store.js";
 
@@ -162,7 +162,7 @@
           </div>
         </div>
       </button>
-      {#if false}
+      <!-- {#if false}
         <button
           class="flex-col justify-center items-start gap-[7px] flex"
           on:click={othentConnect}
@@ -208,7 +208,7 @@
             </div>
           </div>
         </button>
-      {/if}
+      {/if} -->
     </div>
   </div>
 </div>

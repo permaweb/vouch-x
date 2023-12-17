@@ -1,5 +1,7 @@
 wallet.json
 
+dist-*
+
 # Logs
 logs
 *.log
