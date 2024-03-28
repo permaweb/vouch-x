@@ -10,9 +10,12 @@ export async function sendMessage({ address }) {
     ],
     signer: createDataItemSigner(key)
   })
-  await result({
+  const res = await result({
     process: processId,
     message: messageId
   })
+  if (res.Error) {
+    throw new Error(`Error with Vouch DAO: ${res.Error}`)
+  }
   return { address }
 }
