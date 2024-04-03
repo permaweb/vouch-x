@@ -14,8 +14,9 @@ export function vouch(startdate, address) {
         .chain(r => r.ok ? Rejected({ message: 'already vouched' }) : Resolved(ctx))
       )
       .chain(fromPromise(dispatch))
-      .chain(fromPromise(writeInteraction))
       .chain(fromPromise(sendMessage))
+      .chain(fromPromise(writeInteraction))
+
       .toPromise()
   } else {
     return Promise.reject({ message: 'not qualified.' })
