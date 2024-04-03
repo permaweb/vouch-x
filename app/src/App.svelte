@@ -4,7 +4,7 @@
   import Connect from "./components/connect-wallet.svelte";
   import SignInX from "./components/signin-x.svelte";
   import Success from "./components/success.svelte";
-
+  import Ao from "./components/ao.svelte";
   import Nav from "./components/nav.svelte";
 
   router.mode.hash();
@@ -20,6 +20,9 @@
     </Route>
     <Route path="/success">
       <Success />
+    </Route>
+    <Route path="/aos">
+      <Ao />
     </Route>
     <Route path="/error" let:meta>
       <h1 class="text-zinc-400 text-[30px]">
