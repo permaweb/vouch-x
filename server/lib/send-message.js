@@ -1,4 +1,8 @@
 import { createDataItemSigner, message, result } from '@permaweb/aoconnect'
+import fs from 'fs'
+
+const key = JSON.parse(fs.readFileSync(process.env.WALLET, 'utf-8'))
+
 
 export async function sendMessage({ address }) {
   const processId = process.env.VOUCH_DAO_PROCESS_ID || '8qh1lX8dL-PjHZilwCy4kgwR7644IC6Z_gPfia-ij4E'
