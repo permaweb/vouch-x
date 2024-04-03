@@ -4,7 +4,7 @@
   function doVouch() {
     if (pid.length === 43) {
       fetch(
-        `https://su-router.ao-testnet.xyz/?assign={pid}&process-id={VOUCH_DAO}`,
+        `https://su-router.ao-testnet.xyz/?assign=${pid}&process-id=${VOUCH_DAO}`,
         {
           method: "POST",
           headers: {
@@ -14,11 +14,13 @@
         },
       ).then((res) => {
         if (res.status === 200) {
+          pid = "";
           alert("Successfully Vouched Process!");
         } else {
           alert("Something went wrong!");
         }
       });
+      return;
     }
     alert("Valid Vouch Process ID is required!");
   }
