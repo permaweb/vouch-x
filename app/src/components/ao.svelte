@@ -21,7 +21,7 @@
           pid = "";
           router.goto("/success");
         } else {
-          router.goto(`/error?msg=${encodeURI("Could not VOUCH ao Process!")`);
+          router.goto(`/error?msg=${encodeURI("Could not VOUCH ao Process!")}`);
         }
       });
       return;
