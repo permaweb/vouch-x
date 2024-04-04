@@ -1,7 +1,11 @@
 <script>
+  import { router } from "tinro";
   let pid = null;
+  let error = null;
   const VOUCH_DAO = "8qh1lX8dL-PjHZilwCy4kgwR7644IC6Z_gPfia-ij4E";
+
   function doVouch() {
+    error = null;
     if (pid.length === 43) {
       fetch(
         `https://su-router.ao-testnet.xyz/?assign=${pid}&process-id=${VOUCH_DAO}`,
@@ -15,14 +19,14 @@
       ).then((res) => {
         if (res.status === 200) {
           pid = "";
-          alert("Successfully Vouched Process!");
+          router.goto("/success");
         } else {
-          alert("Something went wrong!");
+          router.goto(`/error?msg=${encodeURI("Could not VOUCH ao Process!")`);
         }
       });
       return;
     }
-    alert("Valid Vouch Process ID is required!");
+    error = "Valid ao Process ID is required!";
   }
 </script>
 
@@ -72,11 +76,16 @@
           </span>
         </label>
       </div>
+
       <button
         on:click={doVouch}
         class="px-[22px] py-3 bg-indigo-500 rounded-xl shadow border justify-start items-start inline-flex text-white"
         >VOUCH PROCESS</button
       >
     </div>
+
+    {#if error && pid.length > 0}
+      <div class="my-0 py0 text-red-400">{error}</div>
+    {/if}
   </div>
 </div>
