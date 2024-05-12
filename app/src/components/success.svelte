@@ -16,6 +16,9 @@
     });
     //globalThis.location.href = "https://now.g8way.io";
   }
+  async function vouchAO() {
+    console.log(arweaveWallet.address);
+  }
 </script>
 
 <div
@@ -70,9 +73,9 @@
       <div class="justify-center items-start gap-2.5 inline-flex">
         Vouch your "ao" process
       </div>
-      <a
+      <button
         class="px-[22px] py-3 bg-indigo-500 rounded-xl shadow border justify-start items-start inline-flex text-white"
-        href="/aos">VOUCH PROCESS</a
+        on:click={vouchAO}>VOUCH AO PROCESSES</button
       >
     </div>
     <div

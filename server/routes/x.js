@@ -53,11 +53,11 @@ export function callback(req, res) {
     const params = { 'user.fields': 'created_at' }
     client.get('users/me', params).then(async ({ data }) => {
       await vouch(data.created_at, req.session.address, data.username)
-      res.redirect(req.session.callback + '#/success')
+      res.redirect(req.session.callback + '#/success?address=' + req.session.address)
     }).catch(err => {
       console.error(err)
       if (err.message === "already vouched") {
-        res.redirect(req.session.callback + '#/success?msg=' + err.message)
+        res.redirect(req.session.callback + '#/success?msg=' + err.message + '&address=' + req.session.address)
       } else {
         res.redirect(req.session.callback + '#/error?msg=' + err.message)
       }
