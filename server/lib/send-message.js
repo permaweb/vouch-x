@@ -9,8 +9,8 @@ export async function sendMessage({ address, transaction }) {
   const messageId = await message({
     process: processId,
     tags: [
-      { name: 'Action', value: 'Vouch' },
-      { name: 'Wallet', value: address }
+      { name: 'Data-Protocol', value: 'Vouch-For' },
+      { name: 'Vouch-For', value: address }
     ],
     signer: createDataItemSigner(key)
   })

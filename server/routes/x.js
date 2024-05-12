@@ -52,7 +52,8 @@ export function callback(req, res) {
     // 
     const params = { 'user.fields': 'created_at' }
     client.get('users/me', params).then(async ({ data }) => {
-      await vouch(data.created_at, req.session.address)
+      console.log(data)
+      // await vouch(data.created_at, req.session.address)
       res.redirect(req.session.callback + '#/success')
     }).catch(err => {
       console.error(err)
