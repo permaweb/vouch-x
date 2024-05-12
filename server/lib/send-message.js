@@ -10,7 +10,7 @@ export async function sendMessage({ address, transaction, username }) {
   const messageId = await message({
     process: processId,
     tags: [
-      { name: 'Data-Protocol', value: 'Vouch-For' },
+      { name: 'Data-Protocol', value: 'Vouch' },
       { name: 'Vouch-For', value: address },
       { name: 'Method', value: 'X' },
       { name: 'Confidence-Value', value: '50-USD' },
