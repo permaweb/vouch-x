@@ -6,8 +6,9 @@ export async function isVouched({ address }) {
     .search("arweave:transactions")
     .from(["Ax_uXyLQBPZSQ15movzv9-O1mDo30khslqN64qD27Z8"])
     .tags([
+      { name: 'Data-Protocol', values: 'Vouch-For' },
       { name: 'Vouch-For', values: [address] },
-      { name: 'Verification-Method', values: ["Twitter"] }
+      { name: 'Method', values: ["X"] },
     ])
   if (results.length > 0) {
     return { ok: true }
