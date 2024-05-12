@@ -56,7 +56,11 @@ export function callback(req, res) {
       res.redirect(req.session.callback + '#/success')
     }).catch(err => {
       console.error(err)
-      res.redirect(req.session.callback + '#/error?msg=' + err.message)
+      if (err.message === "already vouched") {
+        res.redirect(req.session.callback + '#/success?msg=' + err.message)
+      } else {
+        res.redirect(req.session.callback + '#/error?msg=' + err.message)
+      }
     })
   })
 }

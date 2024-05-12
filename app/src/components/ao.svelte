@@ -1,33 +1,38 @@
 <script>
   import { router } from "tinro";
-  import { message, result } from "@permaweb/aoconnect";
+  import { message, result, createDataItemSigner } from "@permaweb/aoconnect";
   let pid = null;
   let error = null;
   const VOUCH_DAO = "L1CWfW_LAWA7UY_zf9CFwbnt3wLuVMEueylFi_1YACo";
 
   function doVouch() {
     error = null;
-    if (pid.length === 43) {
-      message({
-        process: VOUCH_DAO,
-        tags: [
-          { name: "Action", value: "Add-ID" },
-          { name: "ID", value: pid },
-        ],
-      }).then((id) => result({
-          message: id,
-          process: VOUCH_DAO,
-      }).then((res) => {
-        if (res.status === 200) {
-          pid = "";
-          router.goto("/success");
-        } else {
-          router.goto(`/error?msg=${encodeURI("Could not VOUCH ao Process!")}`);
-        }
-      });
-      return;
-    }
-    error = "Valid ao Process ID is required!";
+    console.log(arweaveWallet.address);
+    // get list of process by address
+
+    // if (pid.length === 43) {
+
+    //   message({
+    //     signer: createDataItemSigner(arweaveWallet),
+    //     process: VOUCH_DAO,
+    //     tags: [
+    //       { name: "Action", value: "Add-ID" },
+    //       { name: "ID", value: pid },
+    //     ],
+    //   }).then((id) => result({
+    //       message: id,
+    //       process: VOUCH_DAO,
+    //   }).then((res) => {
+    //     if (res.status === 200) {
+    //       pid = "";
+    //       router.goto("/success");
+    //     } else {
+    //       router.goto(`/error?msg=${encodeURI("Could not VOUCH ao Process!")}`);
+    //     }
+    //   });
+    //   return;
+    // }
+    // error = "Valid ao Process ID is required!";
   }
 </script>
 
@@ -57,31 +62,10 @@
     <div
       class="w-[701px] h-[175px] px-6 bg-gradient-to-b from-violet-50 to-white rounded-[18px] shadow-inner border-2 border-indigo-500 border-opacity-50 flex-col justify-center items-start gap-[49px] flex"
     >
-      <div class="justify-center items-start gap-2.5 inline-flex">
-        <label
-          for="pid"
-          class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-        >
-          <input
-            bind:value={pid}
-            type="text"
-            id="pid"
-            class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 w-[425px] font-mono px-1 py-2"
-            placeholder="Process ID"
-          />
-
-          <span
-            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-gradient-to-b p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-          >
-            Process ID
-          </span>
-        </label>
-      </div>
-
       <button
         on:click={doVouch}
         class="px-[22px] py-3 bg-indigo-500 rounded-xl shadow border justify-start items-start inline-flex text-white"
-        >VOUCH PROCESS</button
+        >VOUCH PROCESSES</button
       >
     </div>
 
