@@ -1,22 +1,23 @@
 <script>
   import { router } from "tinro";
+  import { message, result } from "@permaweb/aoconnect";
   let pid = null;
   let error = null;
-  const VOUCH_DAO = "8qh1lX8dL-PjHZilwCy4kgwR7644IC6Z_gPfia-ij4E";
+  const VOUCH_DAO = "L1CWfW_LAWA7UY_zf9CFwbnt3wLuVMEueylFi_1YACo";
 
   function doVouch() {
     error = null;
     if (pid.length === 43) {
-      fetch(
-        `https://su-router.ao-testnet.xyz/?assign=${pid}&process-id=${VOUCH_DAO}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: "",
-        },
-      ).then((res) => {
+      message({
+        process: VOUCH_DAO,
+        tags: [
+          { name: "Action", value: "Add-ID" },
+          { name: "ID", value: pid },
+        ],
+      }).then((id) => result({
+          message: id,
+          process: VOUCH_DAO,
+      }).then((res) => {
         if (res.status === 200) {
           pid = "";
           router.goto("/success");

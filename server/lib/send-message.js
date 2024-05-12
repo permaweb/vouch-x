@@ -5,7 +5,8 @@ const key = JSON.parse(fs.readFileSync(process.env.WALLET, 'utf-8'))
 
 
 export async function sendMessage({ address, transaction, username }) {
-  const processId = process.env.VOUCH_DAO_PROCESS_ID || '8qh1lX8dL-PjHZilwCy4kgwR7644IC6Z_gPfia-ij4E'
+  console.log('SEND TO AOS: ')
+  const processId = process.env.VOUCH_DAO_PROCESS_ID || 'L1CWfW_LAWA7UY_zf9CFwbnt3wLuVMEueylFi_1YACo'
   const messageId = await message({
     process: processId,
     tags: [
@@ -21,6 +22,7 @@ export async function sendMessage({ address, transaction, username }) {
     process: processId,
     message: messageId
   })
+  console.log('messageId', messageId)
   if (res.Error) {
     throw new Error(`Error with Vouch DAO: ${res.Error}`)
   }
