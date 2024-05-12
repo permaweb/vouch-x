@@ -1,5 +1,8 @@
 <script>
   import Confetti from "svelte-confetti";
+  import { assign } from "@permaweb/aoconnect";
+
+  export let address = "";
 
   async function checkGateway(e) {
     e.preventDefault();
@@ -16,8 +19,64 @@
     });
     //globalThis.location.href = "https://now.g8way.io";
   }
+  async function getProcesses(address) {
+    return fetch("https://arweave-search.goldsky.com/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        variables: { addresses: [address] },
+        query: `query ($addresses:[String!]!) {
+  transactions (
+    first: 100,
+    owners: $addresses, 
+    tags: [
+      { name: "Data-Protocol", values: ["ao"] },
+      { name: "Variant", values: ["ao.TN.1"] },
+      { name: "Type", values: ["Process"]}
+    ]
+  ) {
+    edges {
+      node {
+        id 
+      }
+    }
+  }
+}
+        `,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => res.data?.transactions?.edges.map(({ node }) => node.id));
+  }
+
   async function vouchAO() {
-    console.log(arweaveWallet.address);
+    const vouch = "L1CWfW_LAWA7UY_zf9CFwbnt3wLuVMEueylFi_1YACo";
+    const processes = await getProcesses(address);
+    console.log(processes);
+    await Promise.all(
+      processes.map((pid) =>
+        fetch(`https://mu1.ao-testnet.xyz?process-id=${vouch}&assign=${pid}`, {
+          method: "POST",
+        }).then((res) => res.json()),
+      ),
+    ).then((res) => {
+      console.log(res);
+      globalThis.alert("Processes Vouched!");
+    });
+
+    /*
+    const process = "L1CWfW_LAWA7UY_zf9CFwbnt3wLuVMEueylFi_1YACo";
+    const message = "8IxceJSmgQBJE4EkuFzky1kUofUd1h1m9hKPTW8FDIk";
+    const result = await fetch(
+      `https://mu1.ao-testnet.xyz?process-id=${process}&assign=${message}`,
+      {
+        method: "POST",
+      },
+    ).then((res) => res.json());
+    console.log(result);
+    */
   }
 </script>
 

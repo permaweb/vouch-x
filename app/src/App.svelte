@@ -18,8 +18,8 @@
     <Route path="/signin">
       <SignInX />
     </Route>
-    <Route path="/success">
-      <Success />
+    <Route path="/success" let:meta>
+      <Success address={meta.query.address} />
     </Route>
     <Route path="/aos">
       <Ao />
