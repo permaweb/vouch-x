@@ -52,12 +52,11 @@
   }
 
   async function vouchAO() {
-    const vouch = "L1CWfW_LAWA7UY_zf9CFwbnt3wLuVMEueylFi_1YACo";
+    const vouch = "ZTTO02BL2P-lseTLUgiIPD9d0CF1sc4LbMA2AQ7e9jo";
     const processes = await getProcesses(address);
-    console.log(processes);
     await Promise.all(
       processes.map((pid) =>
-        fetch(`https://mu1.ao-testnet.xyz?process-id=${vouch}&assign=${pid}`, {
+        fetch(`https://su-router.ao-testnet.xyz?process-id=${vouch}&assign=${pid}`, {
           method: "POST",
         }).then((res) => res.json()),
       ),
