@@ -3,7 +3,7 @@ import fs from 'fs'
 
 const key = JSON.parse(fs.readFileSync(process.env.WALLET, 'utf-8'))
 
-export async function dispatch({ address, username }) {
+export async function dispatch({ address, username, value }) {
   const url = process.env.IRYS_NODE || 'https://node2.irys.xyz'
   const token = 'arweave'
   const irys = new Irys({ url, token, key })
@@ -16,5 +16,5 @@ export async function dispatch({ address, username }) {
       { name: 'Verification-Method', value: 'Twitter' }
     ]
   })
-  return { address, transaction: receipt.id, username }
+  return { address, transaction: receipt.id, username, value }
 }
