@@ -21,6 +21,7 @@
     "warp-contracts": "^1.4.26"
   },
   "scripts": {
-    "start": "node -r dotenv/config server.js"
+    "start": "node -r dotenv/config server.js",
+    "test": "node --test test"
   }
 }

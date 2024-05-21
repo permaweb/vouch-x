@@ -1,6 +1,7 @@
 import LoginWithX from 'login-with-twitter'
 import Twitter from 'twitter-v2'
 import { vouch } from '../lib/index.js'
+import { calculate } from '../lib/calc-confidence-value.js'
 
 const tw = new LoginWithX({
   consumerKey: process.env.CONSUMER_KEY,
@@ -52,7 +53,8 @@ export function callback(req, res) {
     // 
     const params = { 'user.fields': 'created_at' }
     client.get('users/me', params).then(async ({ data }) => {
-      await vouch(data.created_at, req.session.address, data.username)
+      console.log(data)
+      await vouch(data.created_at, req.session.address, data.username, calculate(data))
       res.redirect(req.session.callback + '#/success?address=' + req.session.address)
     }).catch(err => {
       console.error(err)

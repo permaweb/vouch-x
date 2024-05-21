@@ -6,10 +6,10 @@ import { writeInteraction } from '../lib/write-interaction.js'
 import { isVouched } from '../lib/is-vouched.js'
 import { sendMessage } from './send-message.js'
 
-export function vouch(startdate, address, username) {
+export function vouch(startdate, address, username, value) {
   const sixMonthsAgo = sub(new Date(), { months: 6 })
   if (isBefore(parseISO(startdate), sixMonthsAgo)) {
-    return of({ address, username })
+    return of({ address, username, value })
       .chain(ctx => fromPromise(isVouched)(ctx)
         .chain(r => r.ok ? Rejected({ message: 'already vouched' }) : Resolved(ctx))
       )
