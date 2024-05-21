@@ -51,7 +51,7 @@ export function callback(req, res) {
     })
     // get created at and return to client
     // 
-    const params = { 'user.fields': 'created_at' }
+    const params = { 'user.fields': 'created_at,public_metrics,verified' }
     client.get('users/me', params).then(async ({ data }) => {
       console.log(data)
       await vouch(data.created_at, req.session.address, data.username, calculate(data))

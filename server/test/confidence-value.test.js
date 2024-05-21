@@ -9,7 +9,7 @@ test('calculate the correct confidence value for a verified user', () => {
       tweet_count: 4534,
       listed_count: 23
     },
-    verified: 'blue'
+    verified: true
   };
   const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05) + 8.00);
   const confidenceValue = calculate(userMetrics);
@@ -23,7 +23,7 @@ test('calculate the correct confidence value for a non-verified user', () => {
       tweet_count: 4534,
       listed_count: 23
     },
-    verified: 'none'
+    verified: false
   };
   const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05));
   const confidenceValue = calculate(userMetrics);
@@ -50,7 +50,7 @@ test('calculate the correct confidence value when some metrics are zero', () => 
       tweet_count: 0,
       listed_count: 0
     },
-    verified: 'blue'
+    verified: true
   };
   const expectedValue = 8.00;
   const confidenceValue = calculate(userMetrics);
@@ -64,7 +64,7 @@ test('calculate the correct confidence value when all metrics are zero and user 
       tweet_count: 0,
       listed_count: 0
     },
-    verified: 'none'
+    verified: false
   };
   const expectedValue = 0;
   const confidenceValue = calculate(userMetrics);
