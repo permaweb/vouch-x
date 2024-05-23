@@ -12,7 +12,7 @@ export function calculate(user) {
 
   const confidenceValue = Math.floor((tweet_count * TWEET_WEIGHT) +
     (like_count * LIKE_WEIGHT) +
-    (listed_count * LISTED_WEIGHT) +
+    // (listed_count * LISTED_WEIGHT) +
     (verified ? VERIFIED_WEIGHT : 0));
 
   return confidenceValue;
