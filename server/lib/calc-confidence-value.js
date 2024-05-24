@@ -10,10 +10,21 @@ export function calculate(user) {
   const { followers_count, tweet_count, listed_count, like_count } = user.public_metrics;
   const verified = user.verified;
 
-  const confidenceValue = Math.floor((tweet_count * TWEET_WEIGHT) +
-    (like_count * LIKE_WEIGHT) +
+  let confidenceValue = (tweet_count * TWEET_WEIGHT) +
+    // (like_count * LIKE_WEIGHT) +
     // (listed_count * LISTED_WEIGHT) +
-    (verified ? VERIFIED_WEIGHT : 0));
+    (verified ? VERIFIED_WEIGHT : 0);
+  if (!verified) {
+    if (followers_count < 150) {
+      confidenceValue = 0
+    }
+    if (listed_count < 20) {
+      confidenceValue = 0
+    }
+    if (like_count < 500) {
+      confidenceValue = 0
+    }
+  }
 
   return confidenceValue;
 }
