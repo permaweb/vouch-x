@@ -15,7 +15,7 @@ export function vouch(startdate, address, username, value) {
       )
       .chain(fromPromise(dispatch))
       .chain(fromPromise(sendMessage))
-      .chain(fromPromise(writeInteraction))
+      //.chain(fromPromise(writeInteraction))
 
       .toPromise()
   } else {
