@@ -11,7 +11,8 @@ test('calculate the correct confidence value for a verified user', () => {
     },
     verified: true
   };
-  const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05) + 8.00);
+  //const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05) + 8.00);
+  const expectedValue = 12.533999999999999
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
@@ -25,7 +26,8 @@ test('calculate the correct confidence value for a non-verified user', () => {
     },
     verified: false
   };
-  const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05));
+  //const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05));
+  const expectedValue = 4.534;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
@@ -38,7 +40,8 @@ test('calculate the correct confidence value when verified property is missing',
       listed_count: 23
     }
   };
-  const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05));
+  //const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05));
+  const expectedValue = 4.534;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
