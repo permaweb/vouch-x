@@ -1,8 +1,8 @@
 const VERIFIED_WEIGHT = 1;
 
 const CUTOFF_PARAMS = {
-  'followers_count': 50,
-  'tweet_count': 20,
+  'followers_count': 100,
+  'tweet_count': 10,
   // 'listed_count': 0,
   // 'like_count': 100,
 }
@@ -11,22 +11,22 @@ const POINTS_PARAMS = {
   'followers_count': {
     scale: 2.5,
     offset: 100,
-    doublingValue: 10000,
+    targetValue: 10000,
   },
   'listed_count': {
     scale: 0.5,
-    offset: 1,
-    doublingValue: 10,
+    offset: 0,
+    targetValue: 2,
   },
   'tweet_count': {
     scale: 0.5,
-    offset: 100,
-    doublingValue: 1000,
+    offset: 0,
+    targetValue: 1000,
   },
   'like_count': {
     scale: 0.5,
-    offset: 100,
-    doublingValue: 1000,
+    offset: 0,
+    targetValue: 100,
   },
 }
 
@@ -40,12 +40,10 @@ export function calculate(user) {
   if (verified) {
     // For verified users:
     // Add points
-    console.log('verified user', verified);
     confidenceValue += VERIFIED_WEIGHT;
   } else {
     // For unverified users:
     // If any of the cutoff params are below the threshold, return confidenceValue of zero
-    console.log('unverified user', verified);
     for (const [key, cutoff] of Object.entries(CUTOFF_PARAMS)) {
       const metricValue = public_metrics[key] ?? 0;
       if (metricValue < cutoff) {
@@ -56,15 +54,17 @@ export function calculate(user) {
 
   // Add points based on the user's public metrics
   for (const [key, params] of Object.entries(POINTS_PARAMS)) {
-    const { scale, offset, doublingValue } = params;
+    const { scale, offset, targetValue } = params;
     const metricValue = public_metrics[key] ?? 0;
 
-    // Skip if the metric is 
+    // Skip if the metric is below the offset
     const aboveOffset = Math.max(0, metricValue - offset);
     if (aboveOffset === 0) continue;
     
-    // Points based on logarithmic scale
-    const points = scale * Math.log2(aboveOffset) / Math.log2(doublingValue);
+    // Calculate points based on the scale
+    const logAboveOffset = Math.log10(Math.min(aboveOffset, targetValue));
+    const logTargetValue = Math.log10(targetValue);
+    const points = scale * (logAboveOffset / logTargetValue);
     confidenceValue += points;
   }
 
