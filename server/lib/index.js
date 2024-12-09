@@ -10,13 +10,13 @@ export function vouch(startdate, address, username, value) {
   const sixMonthsAgo = sub(new Date(), { months: 6 })
   if (isBefore(parseISO(startdate), sixMonthsAgo)) {
     return of({ address, username, value })
-      .chain(ctx => fromPromise(isVouched)(ctx)
-        .chain(r => r.ok ? Rejected({ message: 'already vouched' }) : Resolved(ctx))
-      )
+      // Allow re-vouching, the main contract will now update the value
+      //.chain(ctx => fromPromise(isVouched)(ctx)
+      //  .chain(r => r.ok ? Rejected({ message: 'already vouched' }) : Resolved(ctx))
+      //)
       .chain(fromPromise(dispatch))
       .chain(fromPromise(sendMessage))
       //.chain(fromPromise(writeInteraction))
-
       .toPromise()
   } else {
     return Promise.reject({ message: 'not qualified.' })
