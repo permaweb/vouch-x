@@ -10,23 +10,23 @@ const CUTOFF_PARAMS = {
 const POINTS_PARAMS = {
   'followers_count': {
     scale: 2.5,
-    offset: 100,
-    targetValue: 10000,
+    inflectionValue: 1000,
+    eccentricity: 1,
   },
   'listed_count': {
     scale: 0.5,
-    offset: 0,
-    targetValue: 2,
+    inflectionValue: 2,
+    eccentricity: 1,
   },
   'tweet_count': {
     scale: 0.5,
-    offset: 0,
-    targetValue: 1000,
+    inflectionValue: 1000,
+    eccentricity: 1,
   },
   'like_count': {
     scale: 0.5,
-    offset: 0,
-    targetValue: 100,
+    inflectionValue: 100,
+    eccentricity: 1,
   },
 }
 
@@ -54,17 +54,13 @@ export function calculate(user) {
 
   // Add points based on the user's public metrics
   for (const [key, params] of Object.entries(POINTS_PARAMS)) {
-    const { scale, offset, targetValue } = params;
+    const { scale, offset, inflectionValue, eccentricity } = params;
     const metricValue = public_metrics[key] ?? 0;
 
-    // Skip if the metric is below the offset
-    const aboveOffset = Math.max(0, metricValue - offset);
-    if (aboveOffset === 0) continue;
-    
     // Calculate points based on the scale
-    const logAboveOffset = Math.log10(Math.min(aboveOffset, targetValue));
-    const logTargetValue = Math.log10(targetValue);
-    const points = scale * (logAboveOffset / logTargetValue);
+    const logValue = Math.log10(metricValue);
+    const logInflectionValue = Math.log10(inflectionValue);
+    const points = scale / (1 + Math.exp(-eccentricity * (logValue - logInflectionValue)));
     confidenceValue += points;
   }
 

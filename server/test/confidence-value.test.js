@@ -11,7 +11,7 @@ test('calculate the correct confidence value for a verified user', () => {
     },
     verified: true
   };
-  const expectedValue = 3.86;
+  const expectedValue = 2.96;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
@@ -25,7 +25,7 @@ test('calculate the correct confidence value for a non-verified user', () => {
     },
     verified: false
   };
-  const expectedValue = 2.86;
+  const expectedValue = 1.96;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
@@ -38,7 +38,7 @@ test('calculate the correct confidence value when verified property is missing',
       listed_count: 23
     }
   };
-  const expectedValue = 2.86;
+  const expectedValue = 1.96;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
@@ -80,7 +80,7 @@ test('calculate the correct confidence value when all metrics are minimum and us
     },
     verified: false
   };
-  const expectedValue = 1.42;
+  const expectedValue = 0.89;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
@@ -95,7 +95,7 @@ test('calculate the correct confidence value when all metrics are very high and 
     },
     verified: true
   };
-  const expectedValue = 5;
+  const expectedValue = 4.62;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
