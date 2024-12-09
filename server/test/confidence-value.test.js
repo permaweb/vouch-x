@@ -7,12 +7,11 @@ test('calculate the correct confidence value for a verified user', () => {
     public_metrics: {
       followers_count: 1045,
       tweet_count: 4534,
-      listed_count: 23
+      listed_count: 23,
     },
     verified: true
   };
-  //const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05) + 8.00);
-  const expectedValue = 12.533999999999999
+  const expectedValue = 2.96;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
@@ -26,8 +25,7 @@ test('calculate the correct confidence value for a non-verified user', () => {
     },
     verified: false
   };
-  //const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05));
-  const expectedValue = 4.534;
+  const expectedValue = 1.96;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
@@ -40,13 +38,12 @@ test('calculate the correct confidence value when verified property is missing',
       listed_count: 23
     }
   };
-  //const expectedValue = Math.floor((4534 * 0.001) + (1045 * 0.02) + (23 * 0.05));
-  const expectedValue = 4.534;
+  const expectedValue = 1.96;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
 
-test('calculate the correct confidence value when some metrics are zero', () => {
+test('calculate the correct confidence value when all metrics are zero, but verified', () => {
   const userMetrics = {
     public_metrics: {
       followers_count: 0,
@@ -55,17 +52,17 @@ test('calculate the correct confidence value when some metrics are zero', () => 
     },
     verified: true
   };
-  const expectedValue = 8.00;
+  const expectedValue = 1;
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
 
-test('calculate the correct confidence value when all metrics are zero and user is not verified', () => {
+test('calculate the correct confidence value when all metrics are below minimum and user is not verified', () => {
   const userMetrics = {
     public_metrics: {
-      followers_count: 0,
-      tweet_count: 0,
-      listed_count: 0
+      followers_count: 99,
+      tweet_count: 999,
+      listed_count: 999,
     },
     verified: false
   };
@@ -73,3 +70,33 @@ test('calculate the correct confidence value when all metrics are zero and user 
   const confidenceValue = calculate(userMetrics);
   assert.strictEqual(confidenceValue, expectedValue);
 });
+
+test('calculate the correct confidence value when all metrics are minimum and user is not verified', () => {
+  const userMetrics = {
+    public_metrics: {
+      followers_count: 200,
+      tweet_count: 10,
+      listed_count: 0
+    },
+    verified: false
+  };
+  const expectedValue = 0.89;
+  const confidenceValue = calculate(userMetrics);
+  assert.strictEqual(confidenceValue, expectedValue);
+});
+
+test('calculate the correct confidence value when all metrics are very high and verified', () => {
+  const userMetrics = {
+    public_metrics: {
+      followers_count: 99999,
+      tweet_count: 99999,
+      listed_count: 999999,
+      like_count: 99999
+    },
+    verified: true
+  };
+  const expectedValue = 4.62;
+  const confidenceValue = calculate(userMetrics);
+  assert.strictEqual(confidenceValue, expectedValue);
+});
+
