@@ -57,9 +57,11 @@ export function calculate(user) {
     const { scale, offset, inflectionValue, eccentricity } = params;
     const metricValue = public_metrics[key] ?? 0;
 
-    // Calculate points based on the scale
+    // Use log scaling for the metric value (and inflection value)
     const logValue = Math.log10(metricValue);
     const logInflectionValue = Math.log10(inflectionValue);
+
+    // Logistic curve, e.g. https://www.wolframalpha.com/input?i=plot+y+%3D+2.5+%2F+%281+%2B+exp%28-1+*+%28log10%28x%29-log10%281000%29%29%29%29%2C+0+%3C+x+%3C+2000
     const points = scale / (1 + Math.exp(-eccentricity * (logValue - logInflectionValue)));
     confidenceValue += points;
   }
