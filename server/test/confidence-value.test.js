@@ -60,9 +60,9 @@ test('calculate the correct confidence value when all metrics are zero, but veri
 test('calculate the correct confidence value when all metrics are below minimum and user is not verified', () => {
   const userMetrics = {
     public_metrics: {
-      followers_count: 99,
-      tweet_count: 999,
-      listed_count: 999,
+      followers_count: 9,
+      tweet_count: 9,
+      listed_count: 0,
     },
     verified: false
   };
