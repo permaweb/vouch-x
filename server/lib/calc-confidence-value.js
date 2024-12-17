@@ -1,7 +1,7 @@
 const VERIFIED_WEIGHT = 1;
 
 const CUTOFF_PARAMS = {
-  'followers_count': 100,
+  'followers_count': 10,
   'tweet_count': 10,
   // 'listed_count': 0,
   // 'like_count': 100,
