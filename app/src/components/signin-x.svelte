@@ -1,13 +1,12 @@
 <script>
   import { address } from "../store.js";
-  //const AUTH_SERVICE = "https://4000-permaweb-vouchx-2zoe05600qn.ws-us106.gitpod.io";
   const AUTH_SERVICE = "https://vouch-x.onrender.com";
 
   function login() {
     const addr = $address;
     console.log("address: ", addr);
     globalThis.location.href = `${AUTH_SERVICE}/x?address=${addr}&callback=${encodeURI(
-      globalThis.location.href
+      globalThis.location.href,
     )}`;
   }
 </script>

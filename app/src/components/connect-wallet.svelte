@@ -11,9 +11,6 @@
     }
     await globalThis.arweaveWallet.connect(["ACCESS_ADDRESS"]);
     $address = await globalThis.arweaveWallet.getActiveAddress();
-    fetch("https://4000-permaweb-vouchx-2zoe05600qn.ws-us106.gitpod.io/vouch", {
-      method: "post",
-    }).then((result) => console.log(result));
     router.goto("/signin");
   }
 
